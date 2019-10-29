@@ -1,0 +1,11 @@
+node_modules
+npm-debug.log
+.vscode/**
+!.vscode/launch.json
+.env
+.docker/postgres/data
+.DS_Store
+.scannerwork
+sonar-project.properties
+.nyc_output
+coverage

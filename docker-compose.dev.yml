@@ -1,0 +1,38 @@
+version: '3'
+
+networks:
+  db_gateway_network:
+    driver: bridge
+
+services:
+    db_gateway:
+        container_name: db_gateway
+        image: "postgres:11.4"
+        environment:
+            - POSTGRES_PASSWORD=gateway
+            - POSTGRES_USER=gateway
+            - POSTGRES_DB=gateway
+        ports:
+            - 5432:5432
+        volumes:
+            - "./db:/db"
+        networks:
+            - db_gateway_network
+
+    api_psp_gateway:
+        networks:
+            - db_gateway_network
+        environment:
+            DB_HOST: "db_gateway"
+            DATABASE_URL: "gateway"
+            DB_DATABASE: "gateway"
+            DB_USER: "gateway"
+            DB_PASSWORD: "gateway"
+            DB_PORT: 5432
+        links:
+            - db_gateway
+        depends_on:
+            - db_gateway
+
+volumes:
+  db_gateway:

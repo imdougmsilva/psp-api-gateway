@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+    api_psp_gateway:
+        container_name: api_gateway_psp
+        tty: true
+        stdin_open: true
+        image: "dmelosilva/api_gateway_psp"
+        build: .
+        command: "npm run dev"
+        volumes:
+            - "./:/app"
+        ports:
+            - 5053:5053
+            - 9225:9225
